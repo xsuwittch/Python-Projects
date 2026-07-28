@@ -6,6 +6,9 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-p','--port',required=True)
 parser.add_argument('-a','--address',required=True)
 
+
+serverip = "127.0.0.1"
+serverport= "9000"
 args = parser.parse_args()
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -28,13 +31,13 @@ while True:
     print(f" Asked for file: {filename}")
     
     if not file:
-        print(" File not found in server ")
-        client.sendall("404 : File not found".encode())
+        server_socket.connect((serverip , serverport))
     else:
         reponse = file.read()
         client.sendall(f" 200 OK : {reponse}".encode())
         file.close()
         print(f" File sent ")
     client.close()
+    
     
 
