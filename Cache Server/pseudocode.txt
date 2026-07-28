@@ -1,0 +1,11 @@
+- Wait for a request
+  - When a request comes in, check what file it's looking for.
+  - If we have it stored in the cache:
+    - Send it.
+  - If we don't have it in the cache:
+    - Request it from the main server
+    - If the main server has it:
+      - Store a copy in the cache
+      - Send the file to the client
+    - If the main server does not have it:
+      - Send a 404 to the client
