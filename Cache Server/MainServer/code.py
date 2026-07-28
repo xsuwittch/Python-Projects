@@ -31,7 +31,7 @@ while True:
         
     else:
         reponse = file.read()
-        client.sendall(f" 200 OK : {reponse}".encode())
+        client.sendall(reponse.encode())
         file.close()
         print(f" File sent ")
     client.close()
