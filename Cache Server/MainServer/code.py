@@ -26,7 +26,8 @@ while True:
     if not file:
         print(" File not Found")
         client.sendall("404: File not found".encode())
-        break
+        client.close()
+        continue
         
     else:
         reponse = file.read()

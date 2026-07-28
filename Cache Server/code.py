@@ -32,19 +32,18 @@ while True:
     
     if not file:
         Main_server_soc = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        Main_server_soc.bind(("127.0.0.1",8001))
         Main_server_soc.connect((serverip , serverport))
         Main_server_soc.sendall(filename.encode())
         response = b""
         while True:
             chunk = Main_server_soc.recv(4096)
             if not chunk:
-                exit
+                break
             response += chunk
         
         client.sendall(f" 200 OK : {response}".encode())
         print(" File sent from main server ")
-        
+
     else:
         reponse = file.read()
         client.sendall(f" 200 OK : {reponse}".encode())
