@@ -7,12 +7,12 @@ parser.add_argument('-p','--port',required=True)
 parser.add_argument('-a','--address',required=True)
 
 
-serverip = "127.0.0.1"
-serverport= "9000"
+serverip = '127.0.0.1'
+serverport= 9000
 args = parser.parse_args()
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
+Main_server_soc = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 server_socket.bind((args.address, int(args.port)))
 print(f" Socket created at {args.address} : {args.port}")
 
@@ -31,7 +31,20 @@ while True:
     print(f" Asked for file: {filename}")
     
     if not file:
-        server_socket.connect((serverip , serverport))
+        Main_server_soc = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        Main_server_soc.bind(("127.0.0.1",8001))
+        Main_server_soc.connect((serverip , serverport))
+        Main_server_soc.sendall(filename.encode())
+        response = b""
+        while True:
+            chunk = Main_server_soc.recv(4096)
+            if not chunk:
+                exit
+            response += chunk
+        
+        client.sendall(f" 200 OK : {response}".encode())
+        print(" File sent from main server ")
+        
     else:
         reponse = file.read()
         client.sendall(f" 200 OK : {reponse}".encode())

@@ -17,12 +17,8 @@ while True:
     main_server.listen()
     client, addr = main_server.accept()
     print(f" New connection from {addr}")
-    data = client.recv(1024).decode()
+    filename = client.recv(1024).decode()
 
-    headers = data.split("/n")
-    first_line = headers[0].split()
-    method = first_line[0]
-    filename = first_line[1].strip("/")
     file = fetchfile.fetchfile(filename)
 
     print(f" Asked for file: {filename}")
