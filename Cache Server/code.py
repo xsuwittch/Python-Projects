@@ -41,8 +41,14 @@ while True:
                 break
             response += chunk
         
-        client.sendall(f" 200 OK : {response}".encode())
+        client.sendall(b" 200 OK : "+ response)
+
         print(" File sent from main server ")
+
+        with open(filename,'wb') as new_file:
+            new_file.write(response)
+            print(" File Saved in Cache Server ")
+        
 
     else:
         reponse = file.read()
