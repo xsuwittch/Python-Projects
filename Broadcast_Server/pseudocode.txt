@@ -1,0 +1,4 @@
+-Create a server
+- Add client in a list as they connect
+- Ask user for a message using argparse
+- forward that message to all cleints in the list
