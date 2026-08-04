@@ -14,7 +14,7 @@ print(r"""
 """)
 import subprocess
 import shutil
-import tarfile
+
 
 def backup(username, password, db_type, db_name, backup_file):
     try:
@@ -34,7 +34,5 @@ def backup(username, password, db_type, db_name, backup_file):
         print(" Error Occured during backup")
     return backup_file
 
-def compress(backup_file, compressed_file):
-    tar = tarfile.open(tarfile, mode= "w:gz")
 
                 
