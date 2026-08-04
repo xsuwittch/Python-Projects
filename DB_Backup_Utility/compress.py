@@ -4,6 +4,6 @@ def compress(backup_file, compressed_file):
     try:    
         with tarfile.open(compressed_file, mode= "w:gz") as  tar:
             tar.add(backup_file)
-    except tarfile.ExtractError as e:
-        print(f" Error {e} occured during compression")
+    except (tarfile.TarError, FileNotFoundError) as e:
+        print(f"Error {e} occurred during compression")
         
